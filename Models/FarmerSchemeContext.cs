@@ -27,6 +27,7 @@ namespace FarmerScheme.Models
         public virtual DbSet<FarmerSoldHistory> FarmerSoldHistory { get; set; }
         public virtual DbSet<InsuranceApplication> InsuranceApplication { get; set; }
         public virtual DbSet<InsuranceClaim> InsuranceClaim { get; set; }
+        public virtual DbSet<Loginfieldfarmer> Loginfieldfarmer { get; set; }
         public virtual DbSet<MarketplaceCrops> MarketplaceCrops { get; set; }
         public virtual DbSet<MarketplaceTransactions> MarketplaceTransactions { get; set; }
 
@@ -397,6 +398,26 @@ namespace FarmerScheme.Models
                     .WithMany(p => p.InsuranceClaim)
                     .HasForeignKey(d => d.PolicyNo)
                     .HasConstraintName("FK__insurance__polic__5070F446");
+            });
+
+            modelBuilder.Entity<Loginfieldfarmer>(entity =>
+            {
+                entity.HasKey(e => e.Uname)
+                    .HasName("PK__loginfie__C7D2484FA264175E");
+
+                entity.ToTable("loginfieldfarmer");
+
+                entity.Property(e => e.Uname)
+                    .HasColumnName("uname")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsValid).HasColumnName("isValid");
+
+                entity.Property(e => e.Password)
+                    .HasColumnName("password")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<MarketplaceCrops>(entity =>
