@@ -19,6 +19,7 @@ namespace FarmerScheme.Models
         {
         }
 
+        public virtual DbSet<AdminLogin> AdminLogin { get; set; }
         public virtual DbSet<BidderAddress> BidderAddress { get; set; }
         public virtual DbSet<BidderIdentity> BidderIdentity { get; set; }
         public virtual DbSet<CropInfo> CropInfo { get; set; }
@@ -42,6 +43,28 @@ namespace FarmerScheme.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AdminLogin>(entity =>
+            {
+                entity.HasKey(e => e.Adminmailid)
+                    .HasName("PK__admin_lo__9C0035D1092BE376");
+
+                entity.ToTable("admin_login");
+
+                entity.HasIndex(e => e.Adminpassword)
+                    .HasName("UQ__admin_lo__703CA1DA78B5E23B")
+                    .IsUnique();
+
+                entity.Property(e => e.Adminmailid)
+                    .HasColumnName("adminmailid")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Adminpassword)
+                    .HasColumnName("adminpassword")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<BidderAddress>(entity =>
             {
                 entity.HasKey(e => e.BidderId)
