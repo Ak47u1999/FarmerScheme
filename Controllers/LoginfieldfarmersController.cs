@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FarmerScheme.Models;
+using Microsoft.Data.SqlClient;
 
 namespace FarmerScheme.Controllers
 {
@@ -80,10 +81,23 @@ namespace FarmerScheme.Controllers
         public async Task<ActionResult<Loginfieldfarmer>> PostLoginfieldfarmer(Loginfieldfarmer loginfieldfarmer)
         {
             _context.Loginfieldfarmer.Add(loginfieldfarmer);
+
+            
             try
             {
-
-                await _context.SaveChangesAsync();
+                var passwordCheck = _context.Loginfieldfarmer.Where(x => x.Uname == loginfieldfarmer.Uname && x.Password == loginfieldfarmer.Password).FirstOrDefault();
+                if (passwordCheck != null)
+                {
+                    _context.Loginfieldfarmer.Add(loginfieldfarmer);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    if (LoginfieldfarmerExists(loginfieldfarmer.Uname))
+                    {
+                        return Conflict();
+                    }
+                }
             }
             catch (DbUpdateException)
             {

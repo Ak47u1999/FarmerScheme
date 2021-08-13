@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Loginfarmercheck.cs" />
     <Compile Remove="Models\Loginfield.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
