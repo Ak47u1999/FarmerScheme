@@ -29,16 +29,15 @@ namespace FarmerScheme.Controllers
 
         // GET: api/MarketplaceTransactions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MarketplaceTransactions>> GetMarketplaceTransactions(int id)
+        public int GetMarketplaceTransactions(int id)
         {
-            var marketplaceTransactions = await _context.MarketplaceTransactions.FindAsync(id);
+            var approve = _context.MarketplaceTransactions.Where(x => x.TransactionId== id);
 
-            if (marketplaceTransactions == null)
+            foreach (var i in approve)
             {
-                return NotFound();
+                i.BidAdminApprovalStatus = true;
             }
-
-            return marketplaceTransactions;
+            return _context.SaveChanges();
         }
 
         // PUT: api/MarketplaceTransactions/5

@@ -28,49 +28,32 @@ namespace FarmerScheme.Controllers
         }
 
         // GET: api/BidderIdentities/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BidderIdentity>> GetBidderIdentity(int id)
-        {
-            var bidderIdentity = await _context.BidderIdentity.FindAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<BidderIdentity>> GetBidderIdentity(int id)
+        //{
+        //    var bidderIdentity = await _context.BidderIdentity.FindAsync(id);
 
-            if (bidderIdentity == null)
-            {
-                return NotFound();
-            }
+        //    if (bidderIdentity == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return bidderIdentity;
-        }
+        //    return bidderIdentity;
+        //}
 
         // PUT: api/BidderIdentities/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBidderIdentity(int id, BidderIdentity bidderIdentity)
+        [HttpGet("{id}")]
+        public int PutBidderIdentity(int id)
         {
-            if (id != bidderIdentity.BidderId)
-            {
-                return BadRequest();
-            }
+          var approve = _context.BidderIdentity.Where(x => x.BidderId == id);
 
-            _context.Entry(bidderIdentity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
+            foreach (var i in approve) {
+                i.BidderAdminApprovalStatus = true;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BidderIdentityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return _context.SaveChanges();
 
-            return NoContent();
         }
 
         // POST: api/BidderIdentities

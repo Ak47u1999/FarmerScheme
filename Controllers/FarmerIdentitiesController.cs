@@ -29,16 +29,15 @@ namespace FarmerScheme.Controllers
 
         // GET: api/FarmerIdentities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FarmerIdentity>> GetFarmerIdentity(int id)
+        public int GetFarmerIdentity(int id)
         {
-            var farmerIdentity = await _context.FarmerIdentity.FindAsync(id);
+            var approve = _context.FarmerIdentity.Where(x => x.FarmerId == id);
 
-            if (farmerIdentity == null)
+            foreach (var i in approve)
             {
-                return NotFound();
+                i.AdminApprovalStatus = true;
             }
-
-            return farmerIdentity;
+            return _context.SaveChanges();
         }
 
         // PUT: api/FarmerIdentities/5
