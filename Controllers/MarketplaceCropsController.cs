@@ -27,6 +27,18 @@ namespace FarmerScheme.Controllers
             return await _context.MarketplaceCrops.ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public int GetFarmerIdentity(int id)
+        {
+            var approve = _context.MarketplaceCrops.Where(x => x.RequestId == id);
+
+            foreach (var i in approve)
+            {
+                i.IsTransactionCompleted = true;
+            }
+            return _context.SaveChanges();
+        }
+
         // GET: api/MarketplaceCrops/5
         [HttpPut("{id}")]
         public int GetMarketplaceCrops(int id,MarketplaceCrops bid)
