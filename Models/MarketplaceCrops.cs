@@ -9,11 +9,6 @@ namespace FarmerScheme.Models
 {
     public partial class MarketplaceCrops
     {
-        public MarketplaceCrops()
-        {
-            MarketplaceTransactions = new HashSet<MarketplaceTransactions>();
-        }
-
         public int RequestId { get; set; }
         public int? FarmerId { get; set; }
         public string CropName { get; set; }
@@ -22,8 +17,6 @@ namespace FarmerScheme.Models
         public long? Quantity { get; set; }
         public bool? IsTransactionCompleted { get; set; }
         public DateTime? PostedDate { get; set; }
-
-        public virtual FarmerIdentity Farmer { get; set; }
-        public virtual ICollection<MarketplaceTransactions> MarketplaceTransactions { get; set; }
+        public decimal? HighestBid { get; set; }
     }
 }

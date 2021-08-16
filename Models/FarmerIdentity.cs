@@ -9,12 +9,6 @@ namespace FarmerScheme.Models
 {
     public partial class FarmerIdentity
     {
-        public FarmerIdentity()
-        {
-            InsuranceApplication = new HashSet<InsuranceApplication>();
-            MarketplaceCrops = new HashSet<MarketplaceCrops>();
-        }
-
         public int FarmerId { get; set; }
         public string FarmerName { get; set; }
         public string CropName { get; set; }
@@ -26,10 +20,5 @@ namespace FarmerScheme.Models
         public bool? DocumentStatus { get; set; }
         public string FarmerPassword { get; set; }
         public bool? AdminApprovalStatus { get; set; }
-
-        public virtual FarmerAddress FarmerAddress { get; set; }
-        public virtual FarmerSoldHistory FarmerSoldHistory { get; set; }
-        public virtual ICollection<InsuranceApplication> InsuranceApplication { get; set; }
-        public virtual ICollection<MarketplaceCrops> MarketplaceCrops { get; set; }
     }
 }

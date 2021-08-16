@@ -15,7 +15,5 @@ namespace FarmerScheme.Models
         public string CauseOfLoss { get; set; }
         public DateTime? DateOfLoss { get; set; }
         public bool? ClaimStatus { get; set; }
-
-        public virtual InsuranceApplication PolicyNoNavigation { get; set; }
     }
 }

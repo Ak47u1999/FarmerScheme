@@ -9,11 +9,6 @@ namespace FarmerScheme.Models
 {
     public partial class BidderIdentity
     {
-        public BidderIdentity()
-        {
-            MarketplaceTransactions = new HashSet<MarketplaceTransactions>();
-        }
-
         public int BidderId { get; set; }
         public string BidderName { get; set; }
         public string BidderPhoneNumber { get; set; }
@@ -23,8 +18,5 @@ namespace FarmerScheme.Models
         public bool? BidderDocumentStatus { get; set; }
         public string BidderPassword { get; set; }
         public bool? BidderAdminApprovalStatus { get; set; }
-
-        public virtual BidderAddress BidderAddress { get; set; }
-        public virtual ICollection<MarketplaceTransactions> MarketplaceTransactions { get; set; }
     }
 }

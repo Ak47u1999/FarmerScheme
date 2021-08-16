@@ -9,11 +9,6 @@ namespace FarmerScheme.Models
 {
     public partial class InsuranceApplication
     {
-        public InsuranceApplication()
-        {
-            InsuranceClaim = new HashSet<InsuranceClaim>();
-        }
-
         public int PolicyNo { get; set; }
         public int? FarmerId { get; set; }
         public string InsuranceCompany { get; set; }
@@ -23,8 +18,5 @@ namespace FarmerScheme.Models
         public long? Area { get; set; }
         public long? TotalSumInsured { get; set; }
         public bool? Status { get; set; }
-
-        public virtual FarmerIdentity Farmer { get; set; }
-        public virtual ICollection<InsuranceClaim> InsuranceClaim { get; set; }
     }
 }

@@ -15,8 +15,5 @@ namespace FarmerScheme.Models
         public decimal? BidAmount { get; set; }
         public DateTime? BidDate { get; set; }
         public bool? BidAdminApprovalStatus { get; set; }
-
-        public virtual BidderIdentity Bidder { get; set; }
-        public virtual MarketplaceCrops Request { get; set; }
     }
 }

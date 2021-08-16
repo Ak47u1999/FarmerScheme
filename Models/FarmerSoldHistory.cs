@@ -16,7 +16,5 @@ namespace FarmerScheme.Models
         public decimal? Msp { get; set; }
         public decimal? SoldPrice { get; set; }
         public decimal? TotalPrice { get; set; }
-
-        public virtual FarmerIdentity Farmer { get; set; }
     }
 }

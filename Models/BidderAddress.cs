@@ -14,7 +14,5 @@ namespace FarmerScheme.Models
         public string BidderCity { get; set; }
         public string BidderState { get; set; }
         public string BidderPincode { get; set; }
-
-        public virtual BidderIdentity Bidder { get; set; }
     }
 }

@@ -16,7 +16,5 @@ namespace FarmerScheme.Models
         public string FarmerPincode { get; set; }
         public string FarmerLandAddress { get; set; }
         public string FarmerLandAddressPinCode { get; set; }
-
-        public virtual FarmerIdentity Farmer { get; set; }
     }
 }

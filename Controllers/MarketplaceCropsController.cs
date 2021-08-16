@@ -28,15 +28,16 @@ namespace FarmerScheme.Controllers
         }
 
         // GET: api/MarketplaceCrops/5
-        [HttpGet("{id}")]
-        public int GetMarketplaceCrops(int id)
+        [HttpPut("{id}")]
+        public int GetMarketplaceCrops(int id,MarketplaceCrops bid)
         {
-            var approve = _context.MarketplaceCrops.Where(x => x.RequestId== id);
+            var approve = _context.MarketplaceCrops.Where(x => x.RequestId == id);
 
             foreach (var i in approve)
             {
-                i.IsTransactionCompleted = true;
+                i.HighestBid= bid.HighestBid;
             }
+
             return _context.SaveChanges();
 
         }
@@ -44,34 +45,34 @@ namespace FarmerScheme.Controllers
         // PUT: api/MarketplaceCrops/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMarketplaceCrops(int id, MarketplaceCrops marketplaceCrops)
-        {
-            if (id != marketplaceCrops.RequestId)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutMarketplaceCrops(int id, MarketplaceCrops marketplaceCrops)
+        //{
+        //    if (id != marketplaceCrops.RequestId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(marketplaceCrops).State = EntityState.Modified;
+        //    _context.Entry(marketplaceCrops).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MarketplaceCropsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!MarketplaceCropsExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/MarketplaceCrops
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

@@ -95,12 +95,6 @@ namespace FarmerScheme.Models
                     .HasColumnName("bidder_state")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Bidder)
-                    .WithOne(p => p.BidderAddress)
-                    .HasForeignKey<BidderAddress>(d => d.BidderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__bidder_ad__bidde__4AB81AF0");
             });
 
             modelBuilder.Entity<BidderIdentity>(entity =>
@@ -185,8 +179,7 @@ namespace FarmerScheme.Models
 
             modelBuilder.Entity<FarmerAddress>(entity =>
             {
-                entity.HasKey(e => e.FarmerId)
-                    .HasName("PK__farmer_a__C615582506D71886");
+                entity.HasKey(e => e.FarmerId);
 
                 entity.ToTable("farmer_address");
 
@@ -223,12 +216,6 @@ namespace FarmerScheme.Models
                     .HasColumnName("farmer_state")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Farmer)
-                    .WithOne(p => p.FarmerAddress)
-                    .HasForeignKey<FarmerAddress>(d => d.FarmerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__farmer_ad__farme__3E52440B");
             });
 
             modelBuilder.Entity<FarmerIdentity>(entity =>
@@ -338,12 +325,6 @@ namespace FarmerScheme.Models
                 entity.Property(e => e.TotalPrice)
                     .HasColumnName("total_price")
                     .HasColumnType("money");
-
-                entity.HasOne(d => d.Farmer)
-                    .WithOne(p => p.FarmerSoldHistory)
-                    .HasForeignKey<FarmerSoldHistory>(d => d.FarmerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__farmer_so__farme__412EB0B6");
             });
 
             modelBuilder.Entity<InsuranceApplication>(entity =>
@@ -382,11 +363,6 @@ namespace FarmerScheme.Models
                     .HasColumnType("money");
 
                 entity.Property(e => e.TotalSumInsured).HasColumnName("total_sum_insured");
-
-                entity.HasOne(d => d.Farmer)
-                    .WithMany(p => p.InsuranceApplication)
-                    .HasForeignKey(d => d.FarmerId)
-                    .HasConstraintName("FK__insurance__farme__4D94879B");
             });
 
             modelBuilder.Entity<InsuranceClaim>(entity =>
@@ -416,11 +392,6 @@ namespace FarmerScheme.Models
                     .HasColumnType("date");
 
                 entity.Property(e => e.PolicyNo).HasColumnName("policy_no");
-
-                entity.HasOne(d => d.PolicyNoNavigation)
-                    .WithMany(p => p.InsuranceClaim)
-                    .HasForeignKey(d => d.PolicyNo)
-                    .HasConstraintName("FK__insurance__polic__5070F446");
             });
 
             modelBuilder.Entity<Loginfieldfarmer>(entity =>
@@ -471,6 +442,10 @@ namespace FarmerScheme.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.HighestBid)
+                    .HasColumnName("highest_bid")
+                    .HasColumnType("money");
+
                 entity.Property(e => e.IsTransactionCompleted)
                     .HasColumnName("isTransactionCompleted")
                     .HasDefaultValueSql("((0))");
@@ -480,11 +455,6 @@ namespace FarmerScheme.Models
                     .HasColumnType("date");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
-
-                entity.HasOne(d => d.Farmer)
-                    .WithMany(p => p.MarketplaceCrops)
-                    .HasForeignKey(d => d.FarmerId)
-                    .HasConstraintName("FK__marketpla__farme__534D60F1");
             });
 
             modelBuilder.Entity<MarketplaceTransactions>(entity =>
@@ -513,16 +483,6 @@ namespace FarmerScheme.Models
                 entity.Property(e => e.BidderId).HasColumnName("bidder_id");
 
                 entity.Property(e => e.RequestId).HasColumnName("request_id");
-
-                entity.HasOne(d => d.Bidder)
-                    .WithMany(p => p.MarketplaceTransactions)
-                    .HasForeignKey(d => d.BidderId)
-                    .HasConstraintName("FK__marketpla__bidde__59FA5E80");
-
-                entity.HasOne(d => d.Request)
-                    .WithMany(p => p.MarketplaceTransactions)
-                    .HasForeignKey(d => d.RequestId)
-                    .HasConstraintName("FK__marketpla__reque__59063A47");
             });
 
             OnModelCreatingPartial(modelBuilder);
